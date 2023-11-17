@@ -2,7 +2,9 @@ import { Router } from "express";
 import {
     getRoupas,
     getRoupasById,
-    createRoupa
+    createRoupa,
+    deleteRoupa,
+    updateRoupas
 
 } from "../controllers/roupas.controller.js"
 
@@ -13,6 +15,10 @@ roupasRoutes.get("/", getRoupas);
 roupasRoutes.get("/:id", getRoupasById);
 
 roupasRoutes.post("/", createRoupa);
+
+roupasRoutes.delete("/:id", deleteRoupa);
+
+roupasRoutes.put("/:id", updateRoupas);
 
 
 

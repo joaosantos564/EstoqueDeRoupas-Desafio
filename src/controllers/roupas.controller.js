@@ -61,7 +61,34 @@ export const deleteRoupa = (req, res) => {
             message: "..."
         })
     }
+
+    lista.removeRoupas(id)
+
     return res.status(200).send({
-        message: `Delete student ${id}`
+        message: `Delete roupa ${id}`
+    });
+}
+
+export const updateRoupas = (req, res) => {
+    const { id } = req.params;
+    const { nome, tipo, tamanho, cor, imagem, quantidade } = req.body;
+    if (!nome || !tipo || !tamanho || !cor|| !imagem || !quantidade) {
+        return res.status(400).send({
+            message: "missing fields"
+        });
+    }
+
+    const roupa = lista.getRoupas(id);
+
+    if(!roupa) {
+        return res.status(404).send({
+            message:"roupa não encontrada",
+        });
+    }
+
+
+
+    return res.status(200).send({
+        message: `Update roupa ${nome} tipo ${tipo} tamanho ${tamanho} cor ${cor} imagem ${imagem} quant ${quantidade}`
     });
 }
