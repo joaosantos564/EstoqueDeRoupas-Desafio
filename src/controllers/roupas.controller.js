@@ -12,12 +12,15 @@ export const getRoupas = (req, res) => {
     return res.status(200).send({
         message: "não há roupas cadastradas"
     });
+    
 }
 
 export const getRoupasById = (req, res) => {
     const { id } = req.params;
 
-    const roupa = lista.getRoupa(id);
+    console.log(id);
+
+    const roupa = lista.getRoupas(id);
 
     if (!roupa) {
         return res.status(404).send({
@@ -25,7 +28,7 @@ export const getRoupasById = (req, res) => {
         });
     }
     return res.status(200).send({
-        message: `student with id ${id}`
+        message: `roupa with id ${id}`
     });
 }
 
@@ -45,5 +48,20 @@ export const createRoupa = (req, res) => {
 
     return res.status(200).send({
         message: `Create roupa ${nome} tipo ${tipo} tamanho ${tamanho} cor ${cor} imagem ${imagem} quant ${quantidade}`
+    });
+}
+
+export const deleteRoupa = (req, res) => {
+    const { id } = req.params;
+
+    const roupa = lista.getRoupas(id);
+
+    if(!roupa) {
+        return res.status(404).send({
+            message: "..."
+        })
+    }
+    return res.status(200).send({
+        message: `Delete student ${id}`
     });
 }
