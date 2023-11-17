@@ -6,13 +6,69 @@ const lista = new RoupasLista();
 export const getRoupas = (req, res) => {
     const roupas = lista.getAllRoupas();
 
+    const filtrado = [];
 
-    if (roupas.length) {
-        return res.status(200).send(roupas);
+
+    const { tipo, tamanho, cor } = req.query;
+
+    if (tipo) {
+        const roupas = lista.getByTipo(tipo);
+        if (roupas.length) {
+            filtrado.push(roupas)
+        } else {
+             return res.status(200).send({
+                 message: `não há roupas cadastradas do tipo ${tipo}`
+             });
+
+        }
     }
-    return res.status(200).send({
-        message: "não há roupas cadastradas"
-    });
+    if (tamanho) {
+        const roupas = lista.getByTamanho(tamanho);
+        if (roupas.length) {
+            filtrado.push(roupas)
+        }
+        // return res.status(200).send({
+        //     message: `não há roupas cadastradas do tamanho ${tamanho}`
+        // });
+    }
+    if (cor) {
+        const roupas = lista.getByCor(cor);
+        if (roupas.length) {
+            filtrado.push(roupas)
+        }
+
+        if(roupas.length === 0) {
+            return res.status(404).send({ message: "roupa não encontrada"})
+        }
+        // return res.status(200).send({
+        //     message: `não há roupas cadastradas do cor ${cor}`
+        // });
+    }
+
+    if (tamanho && tipo) {
+        const roupas = lista.getByTamanho(tamanho);
+        if (roupas.length) {
+            return res.status(200).send({ quantity: roupas.length, data: roupas })
+        }
+    }
+
+    if (!tipo && !tamanho && !cor) {
+        const roupas = lista.getAllRoupas();
+
+        return res.status(200).send({ quantity: roupas.length, data: roupas })
+    }
+
+    return res.status(200).send({ quantity: lista.length, data: filtrado})
+
+
+    // if (roupas.length) {
+    //     return res.status(200).send(roupas);
+    // }
+
+    // return res.status(200).send({
+    //     message: "não há roupas cadastradas"
+    // });
+
 
 }
 

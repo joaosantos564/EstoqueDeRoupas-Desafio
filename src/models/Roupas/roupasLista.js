@@ -35,6 +35,25 @@ export class RoupasLista {
         return roupa;
     }
 
+    getByTipo(tipo) {
+        return this.roupas.filter((roupa) => roupa.tipo == tipo);
+    }
+
+    getByTamanho(tamanho) {
+        return this.roupas.filter((roupa) => roupa.tamanho == tamanho);
+    }
+
+    getByCor(cor) {
+        return this.roupas.filter((roupa) => roupa.cor == cor);
+    }
+
+    getByTamanhoTipo(tamanho, tipo) {
+        return this.roupas.filter((roupa) => roupa.tamanho == tamanho && roupa.tipo == tipo);
+    }
+
+
+
+
 
 
 
