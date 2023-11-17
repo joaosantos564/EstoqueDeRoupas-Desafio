@@ -21,19 +21,18 @@ export class RoupasLista {
     }
 
     updateRoupas(id, nome, tipo, tamanho, cor, imagem, quantidade) {
-        this.roupa = this.roupas.map((roupa) => {
-            if (roupa.id === id) {
-                this.nome = nome;
-                this.tipo = tipo;
-                this.tamanho = tamanho;
-                this.cor = cor;
-                this.imagem = imagem;
-                this.quantidade = quantidade;
-            }
-            return roupa;
-        });
+        const roupa = this.getRoupas(id);
 
-        return this.getRoupas(id);
+        if (roupa) {
+            roupa.nome = nome;
+            roupa.tipo = tipo;
+            roupa.tamanho = tamanho;
+            roupa.cor = cor;
+            roupa.imagem = imagem;
+            roupa.quantidade = quantidade;
+        }
+
+        return roupa;
     }
 
 
